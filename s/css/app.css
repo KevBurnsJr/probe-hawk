@@ -1,0 +1,34 @@
+
+html { background: #000; height: 100%; position: relative; }
+body { background: #000; height: 100%; }
+
+#header { width: 100%; background: rgba(255,255,255,0.2); }
+#header > .c { width: 1000px; margin: 0 auto; font-size: 1.4em; }
+#header .logo { color: #fff; padding: 0.5em 1em; display: inline-block; float: left; }
+#header nav { float: left; margin: 0 1em; }
+#header nav li { float: left; list-style: none; }
+#header nav li a { padding: 0.5em 1em; display: inline-block; color: #999; }
+#header nav.user { float: right; }
+#header a:hover,
+#header a.active,
+#header li.active a { text-decoration: none; background: #000; color: #fff; }
+
+#main { font-size: 1.1em; }
+#main > .c { width: 1000px; margin: 0 auto; }
+#main td { padding: 0.05em 0.5em; }
+#main td:first-child { padding-left: 0; }
+#main td:last-child { padding-right: 0; }
+#main #data td { font-family: monospace; }
+
+#main .daily { float: right; width: 25%; }
+#main .daily .c { padding: 0 1em 1em; background: rgba(255,255,255,0.1); margin-bottom: 1em; }
+#main .daily table { width: 100%; }
+#main .daily td { position: relative; font-family: monospace; }
+#main .daily td.date { width: 80px; }
+#main .daily td.time { width: 40px; }
+#main .daily td.day { width: 20px; }
+#main .daily td.count { width: 10px; }
+#main .daily a { display: block; text-align: right; color: #999; width: 100%; height: 1.1em; }
+#main .daily .bar span { position: absolute; left: 0; top: 1px; bottom: 1px; background: #333; z-index: 0; }
+
+#main #agents table td.status { width: 10px; color: #0a0; }

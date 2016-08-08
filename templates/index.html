@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>Probe Hawk</title>
+    <link type="text/css" rel="stylesheet" href="/s/css/default.css" media="all" />
+    <link type="text/css" rel="stylesheet" href="/s/css/app.css" media="all" />
+</head>
+<body>
+    <header id="header">
+        <div class="c">
+            <a href="#" class="logo">Probe Hawk</a>
+            <nav class="site">
+                <li class="active"><a href="#">Logs</a></li>
+                <li><a href="#">Devices</a></li>
+                <li><a href="#">Networks</a></li>
+                <li><a href="#">Tags</a></li>
+                <li><a href="#">Agents</a></li>
+            </nav>
+            <nav class="user">
+                <li><a href="#">Log in</a></li>
+            </nav>
+        </div>
+    </header>
+    <div id="main">
+        <div class="c">
+            <h1>Logs</h1>
+            <div class="daily">
+                <div class="c" id="agents">
+                    <h3>Agents</h3>
+                    <table>
+                        <td class="status">&#9679;</td>
+                        <td>mr3040a</td>
+                    </table>
+                </div>
+                <div class="c">
+                    <h3>Daily Unique</h3>
+                    <table id="daily-data">
+                    </table>
+                </div>
+                <div class="c">
+                    <h3>Time of Day Unique</h3>
+                    <table id="timely-data">
+                    </table>
+                </div>
+                <div class="c">
+                    <h3>Weekday Unique</h3>
+                    <table id="day-week-data">
+                    </table>
+                </div>
+                <form action="load" method="post" enctype="multipart/form-data">
+                    <label for="agent">Agent</label>
+                    <select id="agent" name="agent">
+                        <option value="1">mr3040</option>
+                    </select>
+                    <label for="file">File</label>
+                    <input type="file" name="file" id="file"/>
+                    <input type="submit"/>
+                </form>
+            </div>
+            <form class="standard" style="float: none;">
+                <select>
+                    <option value="">Today</option>
+                    <option value="2016-08-06">2016-08-06</option>
+                    <option value="2016-08-05">2016-08-05</option>
+                    <option value="2016-08-04">2016-08-04</option>
+                    <option value="2016-08-03">2016-08-03</option>
+                    <option value="2016-08-02">2016-08-02</option>
+                    <option value="2016-08-01">2016-08-01</option>
+                </select>
+            </form>
+            <table>
+                <tbody id="data">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="/s/js/lib/promise-7.0.4.min.js"></script>
+    <script src="/s/js/p.js"></script>
+    <script src="/s/js/p.xhr.js"></script>
+    <script src="/s/js/main.js"></script>
+</body>
+</html>

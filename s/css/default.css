@@ -1,0 +1,131 @@
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
+audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }
+audio:not([controls]) { display: none; }
+[hidden] { display: none; }
+
+html { font-size: 100%; /* -webkit-text-size-adjust: auto; -ms-text-size-adjust: auto; */ }
+body { margin: 0; font-size: 13px; line-height: 1.231; vertical-align: top; overflow-x: hidden; }
+body, button, input, select, textarea { font-family: 'Maven Pro', sans-serif; font-weight: 400; color: #999; }
+
+::-moz-selection { background: #ccc; color: #333; text-shadow: none; }
+::selection { background: #ccc; color: #333; text-shadow: none; }
+
+a { color: #666; cursor: pointer; }
+a:visited { color: #666; }
+a:hover { color: #999; }
+a:focus { outline: thin dotted rgba(255,255,255,0.2); }
+
+a:link, a:visited { text-decoration: none; }
+a:hover, a:active { text-decoration: underline; }
+
+a img { border: 0; }
+
+h1, h2, h3, h4, h5, h6 { font-weight: 400; color: #ccc; margin: 0.5em 0; }
+h1 { color: #fff; font-size: 2.4em; }
+h2 { color: #ccc; font-size: 2em; }
+h3 { color: #ccc; font-size: 1.5em; }
+h4 { font-size: 1.2em; }
+h5 { font-size: 1em; }
+h6 { font-size: 1em; }
+h1 a, h2 a { color: #fff; }
+h1 .sub, h2 .sub, h3 .sub, h4 .sub, h5 .sub { color: #999; font-size: 0.8em; margin-left: 0.5em; }
+
+p { font-size: 1.2em; color: #999; }
+
+abbr[title] { border-bottom: 1px dotted; }
+b, strong { font-weight: 500; color: #ddd; }
+blockquote { margin: 1em 40px; }
+dfn { font-style: italic; }
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+ins { background: #ff9; color: #000; text-decoration: none; }
+mark { background: #ff0; color: #000; font-style: italic; font-weight: 400; }
+pre, code, kbd, samp { font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 1em; }
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+q { quotes: none; }
+q:before, q:after { content: ""; content: none; }
+small { font-size: 85%; }
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
+dd { margin: 0 0 0 40px; }
+nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+svg:not(:root) { overflow: hidden; }
+figure { margin: 0; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+td { vertical-align: top; }
+
+/* -= Forms =- */
+form { margin: 0; padding: 0; }
+fieldset{ margin: 0 0 1em 0; padding: 0; border: 0; }
+legend { border: 0; *margin-left: -7px; padding: 0; }
+label { font-weight: 400; color: #ccc; display: block; font-size: 1.1em; }
+label span.sub { font-weight: 400; color: #999; font-size: 0.8em; }
+div.field { margin-bottom: 0.5em; float: left; clear: left; }
+select { margin: 0; padding: 3px; }
+input[type="search"] { -webkit-appearance: textfield; }
+button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; }
+button, input { line-height: normal; *overflow: visible; }
+table button, table input { *overflow: auto; }
+button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; }
+input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+textarea { overflow: auto; vertical-align: top; resize: vertical; }
+input:valid, textarea:valid {  }
+input:invalid, textarea:invalid { background-color: #f0dddd; }
+input.checkbox, input.submit, label { cursor: pointer; }
+
+form.standard { float: left; margin-bottom: 2em; }
+form.standard fieldset { padding: 1em 2em; margin: 0; }
+form.standard div.field { clear: left; padding: 0 0 1em; }
+form.standard label { display: block; cursor: pointer; }
+form.standard h3 { padding-bottom: 0.2em; margin-bottom: 0; border-bottom: 1px solid #aaa; }
+form.standard .ex { display: block; color: #999; }
+form.standard .field.submit { float: right; padding-top: 1em; }
+form.standard .field.submit input.submit { float: left; }
+form.standard input.submit:hover { }
+form.standard input.submit,
+form.standard a.submit { font-size: 1.2em; }
+form.standard input.submit,
+form.standard a.submit,
+form.standard a.delete,
+a.btn { color: #fff; border: none; cursor: pointer; padding: 0.24em 0.5em;
+    font-weight: 400; border: 1px solid rgba(0,0,0,0.3); line-height: 1.1em;
+    background: #006699; -webkit-border-radius: 5px; -moz-border-radius: 0.5em; border-radius: 0.5em;
+    text-shadow: 0px 1px 1px rgba(0,0,0,0.4); 
+    position: relative; text-decoration: none; 
+}
+form.standard a.delete { background-color: #a00; }
+form.standard input.submit.disabled { background: #999; outline: none !important; }
+form.standard input.submit.disabled:focus { outline: none !important; }
+
+form.standard .field.submit .or { line-height: 2.5em; padding: 0 1em; float: left; }
+form.standard .field.submit .cancel { line-height: 2.5em; float: left; }
+
+form.standard .field.error input.text,
+form.standard .field input.text.error { background: #fdd; border-color: #d99; color: #a33; }
+form.standard .field.error label,
+form.standard .field label.error { color: #a33; }
+form.standard .field.f2up { float: left; }
+form.standard .field.f2upl { float: left; clear: none; margin-left: 1em; }
+form.standard .field .symbol { float: left; font-size: 1.3em; line-height: 1.5em; margin-right: 0.2em; }
+
+form.standard input.text,
+form.standard select,
+form.standard textarea { width: 18.5em; padding: 3px; color: #333; border: 1px solid #ccc; background-color: #f3f3f3; padding: 3px; }
+form.standard input.text:focus,
+form.standard select:focus,
+form.standard textarea:focus { color: #000; border-color: #aaa; background-color: #fff; }
+
+/* -= Utils =- */
+.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; }
+.ir br { display: none; }
+.cfx:before, .c:before, .cfx:after, .c:after { content: ""; display: table; }
+.cfx:after, .c:after { clear: both; }
+.cfx, .c { zoom: 1; }
+.empty { text-align: center; padding: 2em 0; font-size: 1.5em; background: #222; line-height: 1.2em; color: #999; font-weight: normal;
+    text-shadow: 0px 2px 2px rgba(0,0,0,0.6); }
