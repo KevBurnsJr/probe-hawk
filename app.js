@@ -153,6 +153,7 @@ app.get('/data/devices/last-seen', function(req, res){
   connection.query(q, function(err, result) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(result.map(function(o){
+      console.log(typeof o.doot);
       return[o.id, o.mac, o.doot.substring(0,10), o.doot.substring(10)];
     })));
   });
