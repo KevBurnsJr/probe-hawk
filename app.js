@@ -145,15 +145,15 @@ app.get('/data/devices/common', function(req, res){
 
 app.get('/data/devices/last-seen', function(req, res){
   var limit = 20;
-  var q = 'SELECT d.id, d.mac, max(concat(l.date, l.time)) as date_time from logs as l ' +
+  var q = 'SELECT d.id, d.mac, max(concat(l.date, l.time)) as doot from logs as l ' +
     'LEFT JOIN devices as d on l.device_id = d.id ' +
     'GROUP BY l.device_id ' + 
-    'ORDER BY date_time desc ' + 
+    'ORDER BY doot desc ' + 
     'LIMIT '+limit;
   connection.query(q, function(err, result) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(result.map(function(o){
-      return[o.id, o.mac, o.date_time.substr(0,10), o.date_time.substr(10)];
+      return[o.id, o.mac, o.doot.substring(0,10), o.doot.substring(10)];
     })));
   });
 });
