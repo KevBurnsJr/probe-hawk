@@ -145,16 +145,19 @@ app.get('/data/devices/common', function(req, res){
 
 app.get('/data/devices/last-seen', function(req, res){
   var limit = 20;
-  var q = 'SELECT d.id, d.mac, max(concat(l.date, l.time)) as doot from logs as l ' +
+  var q = 'SELECT d.id, d.mac, max(concat(l.date, l.time)) as datetime from logs as l ' +
     'LEFT JOIN devices as d on l.device_id = d.id ' +
     'GROUP BY l.device_id ' + 
-    'ORDER BY doot desc ' + 
+    'ORDER BY datetime desc ' + 
     'LIMIT '+limit;
   connection.query(q, function(err, result) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(result.map(function(o){
-      console.log(typeof o.doot);
-      return[o.id, o.mac, o.doot.substring(0,10), o.doot.substring(10)];
+      console.log(o.datetime);
+      if(typeof o.datetime != 'string') {
+        o.datetime = o.datetime.toString();
+      }
+      return[o.id, o.mac, o.datetime.substr(0,10), o.datetime.substr(10)];
     })));
   });
 });
