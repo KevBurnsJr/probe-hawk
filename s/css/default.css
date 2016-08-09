@@ -79,7 +79,7 @@ input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
 input.checkbox, input.submit, label { cursor: pointer; }
 
-form.standard { float: left; margin-bottom: 2em; }
+form.standard { float: left; max-width: 100%; }
 form.standard fieldset { padding: 1em 2em; margin: 0; }
 form.standard div.field { clear: left; padding: 0 0 1em; }
 form.standard label { display: block; cursor: pointer; }
@@ -116,7 +116,7 @@ form.standard .field .symbol { float: left; font-size: 1.3em; line-height: 1.5em
 
 form.standard input.text,
 form.standard select,
-form.standard textarea { width: 18.5em; padding: 3px; color: #333; border: 1px solid #ccc; background-color: #f3f3f3; padding: 3px; }
+form.standard textarea { width: 14em; max-width: 100%; padding: 3px; color: #333; border: 1px solid #ccc; background-color: #f3f3f3; padding: 3px; }
 form.standard input.text:focus,
 form.standard select:focus,
 form.standard textarea:focus { color: #000; border-color: #aaa; background-color: #fff; }

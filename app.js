@@ -9,6 +9,24 @@ var app = express();
 
 app.use(fileUpload());
 app.use('/s', express.static(__dirname + '/s'));
+app.use(function(req, res, next) {
+  var contentType = req.headers['content-type'] || ''
+    , mime = contentType.split(';')[0];
+
+  if (mime != 'text/plain') {
+    return next();
+  }
+
+  var data = '';
+  req.setEncoding('utf8');
+  req.on('data', function(chunk) {
+    data += chunk;
+  });
+  req.on('end', function() {
+    req.rawBody = data;
+    next();
+  });
+});
 
 var port = process.env.PORT || 1337;
 
@@ -57,8 +75,8 @@ app.post('/load-direct', function (req, res) {
     return;
   }
   var agent_id = req.query.agent;
-  var filename = 'tmp'+Math.random();
-  fs.writeFile('uploads/'+filename, req.body, function(err) {
+  var filename = 'tmp'+(" "+Math.random()).substr(3);
+  fs.writeFile('uploads/'+filename, req.rawBody+"\n", function(err) {
     var lineReader = require('readline').createInterface({
       terminal: false,
       input: fs.createReadStream('uploads/'+filename)
@@ -135,6 +153,7 @@ function processLog(lineReader, agent_id) {
     var m;
     var logs = [];
     var devices_networks = [];
+    var devices = [];
     lineReader.on('line', function (line) {
       if(m = line.match(/^([0-9-]+) ([0-9:]+)(\.[0-9]+) .* ([0-9-]+dB) .* SA:([0-9a-f:]+) .* Probe Request \(([^\)]+)?\).*/)) {
         var date    = m[1];
@@ -144,6 +163,9 @@ function processLog(lineReader, agent_id) {
         var mac     = m[5];
         var network = typeof m[6] == 'undefined' ? null : m[6];
         var ts      = (new Date(date + ' ' + time + micro)).getTime();
+        if(mac) {
+          devices.push(mac);
+        }
         if(network) {
           devices_networks.push([mac, network]);
         }
@@ -172,10 +194,6 @@ function processLog(lineReader, agent_id) {
     };
     lineReader.on('close', function () {
       
-      var devices = [];
-      for(i in devices_networks) {
-        devices.push(devices_networks[i][0]);
-      }
       devices = uniq(devices);
       
       var networks = [];

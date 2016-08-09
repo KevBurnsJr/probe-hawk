@@ -52,26 +52,37 @@
                     <table id="day-week-data">
                     </table>
                 </div>
-                <form action="load" method="post" enctype="multipart/form-data">
-                    <label for="agent">Agent</label>
-                    <select id="agent" name="agent">
-                        <option value="1">mr3040</option>
-                    </select>
-                    <label for="file">File</label>
-                    <input type="file" name="file" id="file"/>
-                    <input type="submit"/>
-                </form>
+                <div class="c">
+                    <h3>Upload</h3>
+                    <form action="load" class="standard" method="post" enctype="multipart/form-data">
+                        <div class="field">
+                            <label for="agent">Agent</label>
+                            <select id="agent" class="text" name="agent">
+                                <option value="1">mr3040</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="file">File</label>
+                            <input type="file" name="file" id="file"/>
+                        </div>
+                        <div class="field submit">
+                            <input type="submit" class="submit"/>
+                        </div>
+                    </form>
+                </div>
             </div>
             <form class="standard" style="float: none;">
-                <select>
-                    <option value="">Today</option>
-                    <option value="2016-08-06">2016-08-06</option>
-                    <option value="2016-08-05">2016-08-05</option>
-                    <option value="2016-08-04">2016-08-04</option>
-                    <option value="2016-08-03">2016-08-03</option>
-                    <option value="2016-08-02">2016-08-02</option>
-                    <option value="2016-08-01">2016-08-01</option>
-                </select>
+                <div class="field" style="float: none;">
+                    <select>
+                        <option value="">Today</option>
+                        <option value="2016-08-06">2016-08-06</option>
+                        <option value="2016-08-05">2016-08-05</option>
+                        <option value="2016-08-04">2016-08-04</option>
+                        <option value="2016-08-03">2016-08-03</option>
+                        <option value="2016-08-02">2016-08-02</option>
+                        <option value="2016-08-01">2016-08-01</option>
+                    </select>
+                </div>
             </form>
             <table>
                 <tbody id="data">
