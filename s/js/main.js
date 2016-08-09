@@ -1,11 +1,12 @@
 (function(ph) {
+  
   // Logs
   if(window.document.getElementById('log-data')) {
     var uri = new Uri(window.location.href);
     var param = uri.getQueryParamValue('page');
     var page = param ? parseInt(param) : 1;
     ph.promise(function(fulfill, reject) {
-        ph.xhr.get('/data/logs?page='+page).then(function(xhr) {
+      ph.xhr.get('/data/logs?page='+page).then(function(xhr) {
         if (xhr.status === 200) {
           fulfill(JSON.parse(xhr.responseText));
         }
@@ -21,8 +22,7 @@
         html += "<td class='db'>"+data[i][5]+"dB</td>";
         html += "</tr>";
       }
-      var el = window.document.getElementById('log-data');
-      el.innerHTML = html;
+      window.document.getElementById('log-data').innerHTML = html;
       var html = '';
       html += "<p>Page "+page;
       html += "<a class='prev' href='?page="+Math.max(page-1, 1)+"'>Previous Page</a>";
@@ -39,7 +39,7 @@
     var param = uri.getQueryParamValue('page');
     var page = param ? parseInt(param) : 1;
     ph.promise(function(fulfill, reject) {
-        ph.xhr.get('/data/devices?page='+page).then(function(xhr) {
+      ph.xhr.get('/data/devices?page='+page).then(function(xhr) {
         if (xhr.status === 200) {
           fulfill(JSON.parse(xhr.responseText));
         }
@@ -57,8 +57,7 @@
         html += "<td>"+networks.join("<br/>")+"</td>";
         html += "</tr>";
       }
-      var el = window.document.getElementById('devices');
-      el.innerHTML = html;
+      window.document.getElementById('devices').innerHTML = html;
       var html = '';
       html += "<p>Page "+page;
       html += "<a class='prev' href='?page="+Math.max(page-1, 1)+"'>Previous Page</a>";
@@ -72,7 +71,7 @@
   // Common Devices
   if(window.document.getElementById('most-common-devices')) {
     ph.promise(function(fulfill, reject) {
-        ph.xhr.get('/data/devices/common').then(function(xhr) {
+      ph.xhr.get('/data/devices/common').then(function(xhr) {
         if (xhr.status === 200) {
           fulfill(JSON.parse(xhr.responseText));
         }
@@ -96,7 +95,7 @@
   // Last Seen Devices
   if(window.document.getElementById('last-seen-devices')) {
     ph.promise(function(fulfill, reject) {
-        ph.xhr.get('/data/devices/last-seen').then(function(xhr) {
+      ph.xhr.get('/data/devices/last-seen').then(function(xhr) {
         if (xhr.status === 200) {
           fulfill(JSON.parse(xhr.responseText));
         }
@@ -124,7 +123,7 @@
   // Daily Uniques
   if(window.document.getElementById('daily-data')) {
     ph.promise(function(fulfill, reject) {
-        ph.xhr.get('/data/daily-unique').then(function(xhr) {
+      ph.xhr.get('/data/daily-unique').then(function(xhr) {
         if (xhr.status === 200) {
           fulfill(JSON.parse(xhr.responseText));
         }
@@ -141,15 +140,14 @@
         html += "<td class='count'><a href='#'>"+data[i][1]+"</a></td>";
         html += "</tr>";
       }
-      var el = window.document.getElementById('daily-data');
-      el.innerHTML = html;
+      window.document.getElementById('daily-data').innerHTML = html;
     });
   }
 
   // Hourly Uniques
   if(window.document.getElementById('timely-data')) {
     ph.promise(function(fulfill, reject) {
-        ph.xhr.get('/data/hourly-unique').then(function(xhr) {
+      ph.xhr.get('/data/hourly-unique').then(function(xhr) {
         if (xhr.status === 200) {
           fulfill(JSON.parse(xhr.responseText));
         }
@@ -161,20 +159,19 @@
       var html = '';
       for(i in data) {
         html += "<tr>";
-        html += "<td class='time'><a href='#'>"+data[i][0]+"</a></td>";
+        html += "<td class='time'><a href='#' title='"+data[i][0]+"+00:00'>"+moment((new Date()).toISOString().substr(0,10)+"T"+data[i][0]+"+00:00").format("h A")+"</a></td>";
         html += "<td><a href='#' class='bar'><span style='width: "+(data[i][1]/max)*100+"%;'></span></a></td>";
         html += "<td class='count'><a href='#'>"+data[i][1]+"</a></td>";
         html += "</tr>";
       }
-      var el = window.document.getElementById('timely-data');
-      el.innerHTML = html;
+      window.document.getElementById('timely-data').innerHTML = html;
     });
   }
 
   // Weekday Uniques
   if(window.document.getElementById('weekday-data')) {
     ph.promise(function(fulfill, reject) {
-        ph.xhr.get('/data/weekday-unique').then(function(xhr) {
+      ph.xhr.get('/data/weekday-unique').then(function(xhr) {
         if (xhr.status === 200) {
           fulfill(JSON.parse(xhr.responseText));
         }
@@ -192,8 +189,7 @@
         html += "<td class='count'><a href='#'>"+data[i][1]+"</a></td>";
         html += "</tr>";
       }
-      var el = window.document.getElementById('weekday-data');
-      el.innerHTML = html;
+      window.document.getElementById('weekday-data').innerHTML = html;
     });
   }
 
