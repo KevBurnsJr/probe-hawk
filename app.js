@@ -153,7 +153,8 @@ app.get('/data/devices/last-seen', function(req, res){
   connection.query(q, function(err, result) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(result.map(function(o){
-      console.log(o.datetime);
+      // MySQL and MariaDB handle concatenation differently.
+      // Bottom line, concat fields are sometimes returned as Buffer objects rather than strings.
       if(typeof o.datetime != 'string') {
         o.datetime = o.datetime.toString();
       }
