@@ -33,13 +33,19 @@ body { background: #000; height: 100%; overflow-y: scroll;  }
 
 #agents table td.status { width: 10px; color: #0a0; }
 
-#main #devices { width: 95%; }
+#main #log-data { width: 95%; font-size: 1.1em; }
+#main #devices { width: 95%; font-size: 1.1em; }
 #main table.zebra tr td { padding: 0.25em 0.5em; vertical-align: middle; }
 #main table.zebra tr:nth-child(odd) td { background: rgba(255,255,255,0.1); }
 
-#devices td.mac { font-family: monospace; }
+#log-data td.mac,
+#log-data td.date,
+#log-data td.db { font-family: monospace; }
 
-.pagination p { text-align: center; }
+#devices td.mac { font-family: monospace; width: 200px; }
+#devices td.id { width: 60px; }
+
+.pagination p { text-align: center; margin-right: 5%; }
 .pagination p a.prev { float: left; }
 .pagination p a.next { float: right; }
 

@@ -93,12 +93,13 @@ app.post('/load-direct', function (req, res) {
 });
 
 app.get('/data/logs', function(req, res){
-  var offset = req.query.page ? Math.max((parseInt(req.query.page)-1) * 100, 0) : 0;
+  var limit = 35;
+  var offset = req.query.page ? Math.max((parseInt(req.query.page)-1) * limit, 0) : 0;
   var q = 'SELECT logs.id, date, time, agents.name, devices.mac, signal_strength from logs ' +
     'LEFT JOIN devices on logs.device_id = devices.id ' +
     'LEFT JOIN agents on logs.agent_id = agents.id ' + 
     'ORDER BY date desc, time desc ' + 
-    'LIMIT '+offset+', 100';
+    'LIMIT '+offset+', '+limit;
   connection.query(q, function(err, result) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     for(i in result) {
@@ -111,13 +112,14 @@ app.get('/data/logs', function(req, res){
 });
 
 app.get('/data/devices', function(req, res){
-  var offset = req.query.page ? Math.max((parseInt(req.query.page)-1) * 100, 0) : 0;
+  var limit = 20;
+  var offset = req.query.page ? Math.max((parseInt(req.query.page)-1) * limit, 0) : 0;
   var q = 'SELECT d.id, mac, group_concat(n.ssid) as networks from devices as d ' +
     'LEFT JOIN devices_networks as dn on dn.device_id = d.id ' +
     'LEFT JOIN networks as n on dn.network_id = n.id ' + 
     'GROUP BY d.id ' + 
     'ORDER BY d.id desc ' + 
-    'LIMIT '+offset+', 100';
+    'LIMIT '+offset+', '+limit;
   connection.query(q, function(err, result) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(result.map(function(o){

@@ -1,8 +1,11 @@
 (function(ph) {
   // Logs
   if(window.document.getElementById('log-data')) {
+    var uri = new Uri(window.location.href);
+    var param = uri.getQueryParamValue('page');
+    var page = param ? parseInt(param) : 1;
     ph.promise(function(fulfill, reject) {
-        ph.xhr.get('/data/logs').then(function(xhr) {
+        ph.xhr.get('/data/logs?page='+page).then(function(xhr) {
         if (xhr.status === 200) {
           fulfill(JSON.parse(xhr.responseText));
         }
@@ -13,13 +16,20 @@
         html += "<tr>";
         html += "<td>"+data[i][0]+"</td>";
         html += "<td><a href='#'>"+data[i][1]+"</a></td>";
-        html += "<td>"+data[i][2]+" "+data[i][3]+"</td>";
-        html += "<td><a href='#'>"+data[i][4]+"</a></td>";
-        html += "<td>"+data[i][5]+"dB</td>";
+        html += "<td class='date'>"+data[i][2]+" "+data[i][3]+"</td>";
+        html += "<td class='mac'><a href='#'>"+data[i][4]+"</a></td>";
+        html += "<td class='db'>"+data[i][5]+"dB</td>";
         html += "</tr>";
       }
       var el = window.document.getElementById('log-data');
       el.innerHTML = html;
+      var html = '';
+      html += "<p>Page "+page;
+      html += "<a class='prev' href='?page="+Math.max(page-1, 1)+"'>Previous Page</a>";
+      html += "<a class='next' href='?page="+(page+1)+"'>Next Page</a>";
+      html += "</p>";
+      window.document.getElementById('pagination').innerHTML = html;
+      window.document.getElementById('pagination-top').innerHTML = html;
     });
   }
   
@@ -50,12 +60,12 @@
       var el = window.document.getElementById('devices');
       el.innerHTML = html;
       var html = '';
-      html += "<p>Showing Page "+page;
+      html += "<p>Page "+page;
       html += "<a class='prev' href='?page="+Math.max(page-1, 1)+"'>Previous Page</a>";
       html += "<a class='next' href='?page="+(page+1)+"'>Next Page</a>";
       html += "</p>";
-      var el = window.document.getElementById('devices-pagination');
-      el.innerHTML = html;
+      window.document.getElementById('pagination').innerHTML = html;
+      window.document.getElementById('pagination-top').innerHTML = html;
     });
   }
 
