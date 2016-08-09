@@ -16,7 +16,7 @@
         html += "<tr>";
         html += "<td>"+data[i][0]+"</td>";
         html += "<td><a href='#'>"+data[i][1]+"</a></td>";
-        html += "<td class='date'>"+data[i][2]+" "+data[i][3]+"</td>";
+        html += "<td class='date'>"+moment(data[i][2]+"T"+data[i][3]+"+00:00").fromNow()+"</td>";
         html += "<td class='mac'><a href='#'>"+data[i][4]+"</a></td>";
         html += "<td class='db'>"+data[i][5]+"dB</td>";
         html += "</tr>";
