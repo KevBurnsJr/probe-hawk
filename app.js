@@ -95,18 +95,21 @@ app.post('/load-direct', function (req, res) {
 app.get('/data/logs', function(req, res){
   var limit = 35;
   var offset = req.query.page ? Math.max((parseInt(req.query.page)-1) * limit, 0) : 0;
-  var q = 'SELECT logs.id, date, time, agents.name, devices.mac, signal_strength from logs ' +
-    'LEFT JOIN devices on logs.device_id = devices.id ' +
+  var q = 'SELECT logs.id, date, time, agents.name, d.mac, signal_strength, dn.network_id, count(*) as network_count from logs ' +
+    'LEFT JOIN devices as d on logs.device_id = d.id ' +
+    'LEFT JOIN devices_networks as dn on dn.device_id = d.id ' +
     'LEFT JOIN agents on logs.agent_id = agents.id ' + 
+    'GROUP BY logs.id ' +
     'ORDER BY date desc, time desc ' + 
     'LIMIT '+offset+', '+limit;
   connection.query(q, function(err, result) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     for(i in result) {
       result[i].date = result[i].date.toISOString().substr(0,10);
+      result[i].network_count = result[i].network_id ? result[i].network_count : 0; 
     }
     res.end(JSON.stringify(result.map(function(o){
-      return[o.id, o.name,o.date,o.time,o.mac,o.signal_strength];
+      return[o.id, o.name,o.date,o.time,o.mac,o.signal_strength, o.network_count];
     })));
   });
 });
