@@ -69,74 +69,132 @@
     });
   }
 
-  // Daily Uniques
-  ph.promise(function(fulfill, reject) {
-      ph.xhr.get('/data/daily-unique').then(function(xhr) {
-      if (xhr.status === 200) {
-        fulfill(JSON.parse(xhr.responseText));
+  // Common Devices
+  if(window.document.getElementById('most-common-devices')) {
+    ph.promise(function(fulfill, reject) {
+        ph.xhr.get('/data/devices/common').then(function(xhr) {
+        if (xhr.status === 200) {
+          fulfill(JSON.parse(xhr.responseText));
+        }
+      });
+    }).then(function(data){
+      var max = data.reduce(function(prev, cur) {
+        return Math.max(cur[2], prev);
+      }, 0);
+      var html = '';
+      for(i in data) {
+        html += "<tr>";
+        html += "<td class='date'><a href='#'>"+data[i][1]+"</a></td>";
+        html += "<td><a href='#' class='bar'><span style='width: "+(data[i][2]/max)*100+"%;'></span></a></td>";
+        html += "<td class='count'><a href='#'>"+data[i][2]+"</a></td>";
+        html += "</tr>";
       }
+      window.document.getElementById('most-common-devices').innerHTML = html;
     });
-  }).then(function(data){
-    var max = data.reduce(function(prev, cur) {
-      return Math.max(cur[1], prev);
-    }, 0);
-    var html = '';
-    for(i in data) {
-      html += "<tr>";
-      html += "<td class='date'><a href='#'>"+data[i][0]+"</a></td>";
-      html += "<td><a href='#' class='bar'><span style='width: "+(data[i][1]/max)*100+"%;'></span></a></td>";
-      html += "<td class='count'><a href='#'>"+data[i][1]+"</a></td>";
-      html += "</tr>";
-    }
-    var el = window.document.getElementById('daily-data');
-    el.innerHTML = html;
-  });
+  }
+
+  // Last Seen Devices
+  if(window.document.getElementById('last-seen-devices')) {
+    ph.promise(function(fulfill, reject) {
+        ph.xhr.get('/data/devices/last-seen').then(function(xhr) {
+        if (xhr.status === 200) {
+          fulfill(JSON.parse(xhr.responseText));
+        }
+      });
+    }).then(function(data){
+      var max = data.reduce(function(prev, cur) {
+        return Math.max(cur[2], prev);
+      }, 0);
+      var html = '';
+      var date = '';
+      for(i in data) {
+        if(date != data[i][2]) {
+          html += "<tr><th colspan='2'>"+data[i][2]+"</th></tr>";
+          date = data[i][2];
+        }
+        html += "<tr>";
+        html += "<td class='mac'><a href='#'>"+data[i][1]+"</a></td>";
+        html += "<td><a href='#'>"+data[i][3]+"</a></td>";
+        html += "</tr>";
+      }
+      window.document.getElementById('last-seen-devices').innerHTML = html;
+    });
+  }
+
+  // Daily Uniques
+  if(window.document.getElementById('daily-data')) {
+    ph.promise(function(fulfill, reject) {
+        ph.xhr.get('/data/daily-unique').then(function(xhr) {
+        if (xhr.status === 200) {
+          fulfill(JSON.parse(xhr.responseText));
+        }
+      });
+    }).then(function(data){
+      var max = data.reduce(function(prev, cur) {
+        return Math.max(cur[1], prev);
+      }, 0);
+      var html = '';
+      for(i in data) {
+        html += "<tr>";
+        html += "<td class='date'><a href='#'>"+data[i][0]+"</a></td>";
+        html += "<td><a href='#' class='bar'><span style='width: "+(data[i][1]/max)*100+"%;'></span></a></td>";
+        html += "<td class='count'><a href='#'>"+data[i][1]+"</a></td>";
+        html += "</tr>";
+      }
+      var el = window.document.getElementById('daily-data');
+      el.innerHTML = html;
+    });
+  }
 
   // Hourly Uniques
-  ph.promise(function(fulfill, reject) {
-      ph.xhr.get('/data/hourly-unique').then(function(xhr) {
-      if (xhr.status === 200) {
-        fulfill(JSON.parse(xhr.responseText));
+  if(window.document.getElementById('timely-data')) {
+    ph.promise(function(fulfill, reject) {
+        ph.xhr.get('/data/hourly-unique').then(function(xhr) {
+        if (xhr.status === 200) {
+          fulfill(JSON.parse(xhr.responseText));
+        }
+      });
+    }).then(function(data){
+      var max = data.reduce(function(prev, cur) {
+        return Math.max(cur[1], prev);
+      }, 0);
+      var html = '';
+      for(i in data) {
+        html += "<tr>";
+        html += "<td class='time'><a href='#'>"+data[i][0]+"</a></td>";
+        html += "<td><a href='#' class='bar'><span style='width: "+(data[i][1]/max)*100+"%;'></span></a></td>";
+        html += "<td class='count'><a href='#'>"+data[i][1]+"</a></td>";
+        html += "</tr>";
       }
+      var el = window.document.getElementById('timely-data');
+      el.innerHTML = html;
     });
-  }).then(function(data){
-    var max = data.reduce(function(prev, cur) {
-      return Math.max(cur[1], prev);
-    }, 0);
-    var html = '';
-    for(i in data) {
-      html += "<tr>";
-      html += "<td class='time'><a href='#'>"+data[i][0]+"</a></td>";
-      html += "<td><a href='#' class='bar'><span style='width: "+(data[i][1]/max)*100+"%;'></span></a></td>";
-      html += "<td class='count'><a href='#'>"+data[i][1]+"</a></td>";
-      html += "</tr>";
-    }
-    var el = window.document.getElementById('timely-data');
-    el.innerHTML = html;
-  });
+  }
 
   // Weekday Uniques
-  ph.promise(function(fulfill, reject) {
-      ph.xhr.get('/data/weekday-unique').then(function(xhr) {
-      if (xhr.status === 200) {
-        fulfill(JSON.parse(xhr.responseText));
+  if(window.document.getElementById('weekday-data')) {
+    ph.promise(function(fulfill, reject) {
+        ph.xhr.get('/data/weekday-unique').then(function(xhr) {
+        if (xhr.status === 200) {
+          fulfill(JSON.parse(xhr.responseText));
+        }
+      });
+    }).then(function(data){
+      var max = data.reduce(function(prev, cur) {
+        return Math.max(cur[1], prev);
+      }, 0);
+      var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      var html = '';
+      for(i in data) {
+        html += "<tr>";
+        html += "<td class='day'><a href='#'>"+days[data[i][0]]+"</a></td>";
+        html += "<td><a href='#' class='bar'><span style='width: "+(data[i][1]/max)*100+"%;'></span></a></td>";
+        html += "<td class='count'><a href='#'>"+data[i][1]+"</a></td>";
+        html += "</tr>";
       }
+      var el = window.document.getElementById('weekday-data');
+      el.innerHTML = html;
     });
-  }).then(function(data){
-    var max = data.reduce(function(prev, cur) {
-      return Math.max(cur[1], prev);
-    }, 0);
-    var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    var html = '';
-    for(i in data) {
-      html += "<tr>";
-      html += "<td class='day'><a href='#'>"+days[data[i][0]]+"</a></td>";
-      html += "<td><a href='#' class='bar'><span style='width: "+(data[i][1]/max)*100+"%;'></span></a></td>";
-      html += "<td class='count'><a href='#'>"+data[i][1]+"</a></td>";
-      html += "</tr>";
-    }
-    var el = window.document.getElementById('day-week-data');
-    el.innerHTML = html;
-  });
+  }
 
 })(ProbeHawk);

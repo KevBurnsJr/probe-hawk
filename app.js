@@ -128,6 +128,35 @@ app.get('/data/devices', function(req, res){
   });
 });
 
+app.get('/data/devices/common', function(req, res){
+  var limit = 20;
+  var q = 'SELECT d.id, d.mac, count(*) as total from logs as l ' +
+    'LEFT JOIN devices as d on l.device_id = d.id ' +
+    'GROUP BY l.device_id ' + 
+    'ORDER BY count(*) desc ' + 
+    'LIMIT '+limit;
+  connection.query(q, function(err, result) {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(result.map(function(o){
+      return[o.id, o.mac, o.total];
+    })));
+  });
+});
+
+app.get('/data/devices/last-seen', function(req, res){
+  var limit = 20;
+  var q = 'SELECT d.id, d.mac, max(concat(l.date, l.time)) as datetime from logs as l ' +
+    'LEFT JOIN devices as d on l.device_id = d.id ' +
+    'GROUP BY l.device_id ' + 
+    'ORDER BY datetime desc ' + 
+    'LIMIT '+limit;
+  connection.query(q, function(err, result) {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(result.map(function(o){
+      return[o.id, o.mac, o.datetime.substr(0,10), o.datetime.substr(10)];
+    })));
+  });
+});
 app.get('/data/daily-unique', function(req, res){
   var q = 'SELECT date, count(DISTINCT device_id) as count from logs ' +
     'LEFT JOIN agents on logs.agent_id = agents.id ' + 
