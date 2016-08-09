@@ -41,6 +41,9 @@ var connection = mysql.createConnection({
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/templates/index.html');
 });
+app.get('/devices', function(req, res){
+  res.sendFile(__dirname + '/templates/devices.html');
+});
 
 app.post('/load', function (req, res) {
   if (!req.files || !req.files.file) {
@@ -90,17 +93,36 @@ app.post('/load-direct', function (req, res) {
 });
 
 app.get('/data/logs', function(req, res){
-  var q = 'SELECT date, time, agents.name, devices.mac, signal_strength from logs ' +
+  var offset = req.query.page ? Math.max((parseInt(req.query.page)-1) * 100, 0) : 0;
+  var q = 'SELECT logs.id, date, time, agents.name, devices.mac, signal_strength from logs ' +
     'LEFT JOIN devices on logs.device_id = devices.id ' +
     'LEFT JOIN agents on logs.agent_id = agents.id ' + 
     'ORDER BY date desc, time desc ' + 
-    'LIMIT 100';
+    'LIMIT '+offset+', 100';
   connection.query(q, function(err, result) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     for(i in result) {
       result[i].date = result[i].date.toISOString().substr(0,10);
     }
-    res.end(JSON.stringify(result.map(function(o){return[o.name,o.date,o.time,o.mac,o.signal_strength];})));
+    res.end(JSON.stringify(result.map(function(o){
+      return[o.id, o.name,o.date,o.time,o.mac,o.signal_strength];
+    })));
+  });
+});
+
+app.get('/data/devices', function(req, res){
+  var offset = req.query.page ? Math.max((parseInt(req.query.page)-1) * 100, 0) : 0;
+  var q = 'SELECT d.id, mac, group_concat(n.ssid) as networks from devices as d ' +
+    'LEFT JOIN devices_networks as dn on dn.device_id = d.id ' +
+    'LEFT JOIN networks as n on dn.network_id = n.id ' + 
+    'GROUP BY d.id ' + 
+    'ORDER BY d.id desc ' + 
+    'LIMIT '+offset+', 100';
+  connection.query(q, function(err, result) {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(result.map(function(o){
+      return[o.id, o.mac, (o.networks ? o.networks.split(',') : [])];
+    })));
   });
 });
 
@@ -115,7 +137,9 @@ app.get('/data/daily-unique', function(req, res){
     for(i in result) {
       result[i].date = result[i].date.toISOString().substr(0,10);
     }
-    res.end(JSON.stringify(result.map(function(o){return[o.date, o.count];})));
+    res.end(JSON.stringify(result.map(function(o){
+      return[o.date, o.count];
+    })));
   });
 });
 
@@ -127,7 +151,9 @@ app.get('/data/hourly-unique', function(req, res){
     'LIMIT 24';
   connection.query(q, function(err, result) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(result.map(function(o){return[o.time, o.count];})));
+    res.end(JSON.stringify(result.map(function(o){
+      return[o.time, o.count];
+    })));
   });
 });
 
@@ -139,7 +165,9 @@ app.get('/data/weekday-unique', function(req, res){
     'LIMIT 7';
   connection.query(q, function(err, result) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(result.map(function(o){return[o.weekday, o.count];})));
+    res.end(JSON.stringify(result.map(function(o){
+      return[o.weekday, o.count];
+    })));
   });
 });
 

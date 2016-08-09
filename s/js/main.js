@@ -1,24 +1,63 @@
 (function(ph) {
   // Logs
-  ph.promise(function(fulfill, reject) {
-      ph.xhr.get('/data/logs').then(function(xhr) {
-      if (xhr.status === 200) {
-        fulfill(JSON.parse(xhr.responseText));
+  if(window.document.getElementById('log-data')) {
+    ph.promise(function(fulfill, reject) {
+        ph.xhr.get('/data/logs').then(function(xhr) {
+        if (xhr.status === 200) {
+          fulfill(JSON.parse(xhr.responseText));
+        }
+      });
+    }).then(function(data){
+      var html = '';
+      for(i in data) {
+        html += "<tr>";
+        html += "<td>"+data[i][0]+"</td>";
+        html += "<td><a href='#'>"+data[i][1]+"</a></td>";
+        html += "<td>"+data[i][2]+" "+data[i][3]+"</td>";
+        html += "<td><a href='#'>"+data[i][4]+"</a></td>";
+        html += "<td>"+data[i][5]+"dB</td>";
+        html += "</tr>";
       }
+      var el = window.document.getElementById('log-data');
+      el.innerHTML = html;
     });
-  }).then(function(data){
-    var html = '';
-    for(i in data) {
-      html += "<tr>";
-      html += "<td><a href='#'>"+data[i][0]+"</a></td>";
-      html += "<td>"+data[i][1]+" "+data[i][2]+"</td>";
-      html += "<td><a href='#'>"+data[i][3]+"</a></td>";
-      html += "<td>"+data[i][4]+"dB</td>";
-      html += "</tr>";
-    }
-    var el = window.document.getElementById('data');
-    el.innerHTML = html;
-  });
+  }
+  
+  // Devices
+  if(window.document.getElementById('devices')) {
+    var uri = new Uri(window.location.href);
+    var param = uri.getQueryParamValue('page');
+    var page = param ? parseInt(param) : 1;
+    ph.promise(function(fulfill, reject) {
+        ph.xhr.get('/data/devices?page='+page).then(function(xhr) {
+        if (xhr.status === 200) {
+          fulfill(JSON.parse(xhr.responseText));
+        }
+      });
+    }).then(function(data){
+      var html = '';
+      for(i in data) {
+        var networks = [];
+        for(j in data[i][2]) {
+          networks.push('<a href="/networks/'+encodeURIComponent(data[i][2][j])+'">'+data[i][2][j]+'</a>');
+        }
+        html += "<tr>";
+        html += "<td class='id'>"+data[i][0]+"</td>";
+        html += "<td class='mac'><a href='#'>"+data[i][1]+"</a></td>";
+        html += "<td>"+networks.join("<br/>")+"</td>";
+        html += "</tr>";
+      }
+      var el = window.document.getElementById('devices');
+      el.innerHTML = html;
+      var html = '';
+      html += "<p>Showing Page "+page;
+      html += "<a class='prev' href='?page="+Math.max(page-1, 1)+"'>Previous Page</a>";
+      html += "<a class='next' href='?page="+(page+1)+"'>Next Page</a>";
+      html += "</p>";
+      var el = window.document.getElementById('devices-pagination');
+      el.innerHTML = html;
+    });
+  }
 
   // Daily Uniques
   ph.promise(function(fulfill, reject) {

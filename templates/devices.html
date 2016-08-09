@@ -15,8 +15,8 @@
         <div class="c">
             <a href="#" class="logo">Probe Hawk</a>
             <nav class="site">
-                <li class="active"><a href="/">Logs</a></li>
-                <li><a href="/devices">Devices</a></li>
+                <li><a href="/">Logs</a></li>
+                <li class="active"><a href="/devices">Devices</a></li>
                 <li><a href="#">Networks</a></li>
                 <li><a href="#">Tags</a></li>
                 <li><a href="#">Agents</a></li>
@@ -28,7 +28,7 @@
     </header>
     <div id="main">
         <div class="c">
-            <h1>Logs</h1>
+            <h1>Newest Devices</h1>
             <div class="daily">
                 <div class="c" id="agents">
                     <h3>Agents</h3>
@@ -71,23 +71,25 @@
                     </form>
                 </div>
             </div>
-            <form class="standard" style="float: none;">
-                <div class="field" style="float: none;">
-                    <select>
-                        <option value="">Today</option>
-                        <option value="2016-08-06">2016-08-06</option>
-                        <option value="2016-08-05">2016-08-05</option>
-                        <option value="2016-08-04">2016-08-04</option>
-                        <option value="2016-08-03">2016-08-03</option>
-                        <option value="2016-08-02">2016-08-02</option>
-                        <option value="2016-08-01">2016-08-01</option>
-                    </select>
+            <div class="main">
+                <form class="standard" style="float: none;">
+                    <div class="field" style="float: none;">
+                        <select>
+                            <option value="">Today</option>
+                            <option value="2016-08-06">2016-08-06</option>
+                            <option value="2016-08-05">2016-08-05</option>
+                            <option value="2016-08-04">2016-08-04</option>
+                            <option value="2016-08-03">2016-08-03</option>
+                            <option value="2016-08-02">2016-08-02</option>
+                            <option value="2016-08-01">2016-08-01</option>
+                        </select>
+                    </div>
+                </form>
+                <table id="devices" class="zebra">
+                </table>
+                <div id="devices-pagination" class="pagination">
                 </div>
-            </form>
-            <table>
-                <tbody id="log-data">
-                </tbody>
-            </table>
+            </div>
         </div>
     </div>
     <script src="/s/js/lib/jsuri-1.1.1.js"></script>
