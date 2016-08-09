@@ -5,7 +5,7 @@ audio:not([controls]) { display: none; }
 
 html { font-size: 100%; /* -webkit-text-size-adjust: auto; -ms-text-size-adjust: auto; */ }
 body { margin: 0; font-size: 13px; line-height: 1.231; vertical-align: top; overflow-x: hidden; }
-body, button, input, select, textarea { font-family: 'Maven Pro', sans-serif; font-weight: 400; color: #999; }
+body, button, input, select, textarea { font-family: 'Open Sans', sans-serif; font-weight: 400; color: #999; }
 
 ::-moz-selection { background: #ccc; color: #333; text-shadow: none; }
 ::selection { background: #ccc; color: #333; text-shadow: none; }
