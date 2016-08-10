@@ -63,6 +63,10 @@ app.get('/networks', function(req, res){
   renderPage('networks', res);
 });
 
+app.get('/upload', function(req, res){
+  renderPage('upload', res);
+});
+
 app.post('/load', function (req, res) {
   if (!req.files || !req.files.file) {
     res.writeHead(400, { 'Content-Type': 'text/plain' });
