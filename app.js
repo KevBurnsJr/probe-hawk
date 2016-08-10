@@ -38,11 +38,29 @@ var connection = mysql.createConnection({
   database : "probe_hawk"
 });
 
+function renderPage(name, res) {
+  fs.readFile(__dirname + '/templates/layout.html', function(err, layout) {
+    fs.readFile(__dirname + '/templates/'+name+'.html', function(err, html) {
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end(layout.toString().replace('{{ content }}', html.toString()));
+    });
+  });
+}
+
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/templates/index.html');
+  renderPage('index', res);
 });
+
+app.get('/logs', function(req, res){
+  renderPage('logs', res);
+});
+
 app.get('/devices', function(req, res){
-  res.sendFile(__dirname + '/templates/devices.html');
+  renderPage('devices', res);
+});
+
+app.get('/networks', function(req, res){
+  renderPage('networks', res);
 });
 
 app.post('/load', function (req, res) {
@@ -206,6 +224,38 @@ app.get('/data/weekday-unique', function(req, res){
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(result.map(function(o){
       return[o.weekday, o.count];
+    })));
+  });
+});
+
+app.get('/data/networks', function(req, res){
+  var limit = 20;
+  var offset = req.query.page ? Math.max((parseInt(req.query.page)-1) * limit, 0) : 0;
+  var q = 'SELECT n.id, n.ssid, count(*) as device_total from networks as n ' +
+    'LEFT JOIN devices_networks as dn on dn.network_id = n.id ' +
+    'GROUP BY n.id ' + 
+    'ORDER BY n.id desc ' + 
+    'LIMIT '+offset+', '+limit;
+  connection.query(q, function(err, result) {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(result.map(function(o){
+      return[o.id, o.ssid, o.device_total];
+    })));
+  });
+});
+
+app.get('/data/networks/common', function(req, res){
+  var limit = 30;
+  var offset = req.query.page ? Math.max((parseInt(req.query.page)-1) * limit, 0) : 0;
+  var q = 'SELECT n.id, n.ssid, count(*) as device_total from networks as n ' +
+    'LEFT JOIN devices_networks as dn on dn.network_id = n.id ' +
+    'GROUP BY n.id ' + 
+    'ORDER BY device_total desc ' + 
+    'LIMIT '+offset+', '+limit;
+  connection.query(q, function(err, result) {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(result.map(function(o){
+      return[o.id, o.ssid, o.device_total];
     })));
   });
 });

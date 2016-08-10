@@ -15,39 +15,55 @@ body { background: #000; height: 100%; overflow-y: scroll;  }
 
 #main { font-size: 1.1em; }
 #main > .c { width: 1000px; margin: 0 auto; }
-#main td { padding: 0.05em 0.5em; }
-#main td:first-child { padding-left: 0; }
-#main td:last-child { padding-right: 0; }
+#main td,
+#main th { padding: 0.05em 0.5em; }
+#main td:first-child,
+#main th:first-child { padding-left: 0; }
+#main td:last-child,
+#main th:last-child { padding-right: 0; }
 #main #data td { font-family: monospace; }
+#main table td.id { font-family: monospace; }
 
-#main .daily { float: right; width: 25%; }
-#main .daily .c { padding: 0 1em 1em; background: rgba(255,255,255,0.1); margin-bottom: 1em; }
-#main .daily table { width: 100%; }
-#main .daily td { position: relative; font-family: monospace; }
-#main .daily td.date { width: 80px; }
-#main .daily td.time { width: 40px; }
-#main .daily td.day { width: 20px; }
-#main .daily td.count { width: 10px; }
-#main .daily a { display: block; text-align: right; color: #999; width: 100%; line-height: 1.1em; }
-#main .daily .bar span { position: absolute; left: 0; top: 1px; bottom: 1px; background: #333; z-index: 0; }
+#main .right { float: right; width: 25%; }
+#main .right .c { padding: 0 1em 1em; background: rgba(255,255,255,0.1); margin-bottom: 1em; }
+#main .right table { width: 100%; }
+#main .right td { position: relative; font-family: monospace; }
+#main .right td.date { width: 80px; }
+#main .right td.time { width: 40px; }
+#main .right td.day { width: 20px; }
+#main .right td.count { width: 10px; }
+#main .right td.ssid { width: 120px; line-height: 1em; }
+#main .right a { display: block; text-align: right; color: #999; width: 100%; line-height: 1.1em; }
+#main .right .bar span { position: absolute; left: 0; top: 1px; bottom: 1px; background: #333; z-index: 0; }
+#main .right td.ssid a { line-height: 0.95em; padding: 0.2em 0; }
 
 #agents table td.status { width: 10px; color: #0a0; text-align: center; padding: 0; }
 
-#main #log-data { width: 95%; font-size: 1.1em; }
+#main table.log-data { width: 95%; font-size: 1.1em; }
 #main #devices { width: 95%; font-size: 1.1em; }
-#main table.zebra tr td { padding: 0.25em 0.5em; vertical-align: middle; }
+#main #networks { width: 95%; font-size: 1.1em; }
+#main table.zebra tr td,
+#main table.zebra tr th { padding: 0.25em 0.5em; vertical-align: middle; }
 #main table.zebra tr:nth-child(odd) td { background: rgba(255,255,255,0.1); }
 
-#log-data td.mac,
-#log-data td.date,
-#log-data td.db { font-family: monospace; }
+#main table.log-data th { text-align: left; padding-bottom: 0.4em; color: #666; }
+table.log-data td.mac,
+table.log-data td.date,
+table.log-data td.db { font-family: monospace; }
 
 #devices td.mac { font-family: monospace; width: 200px; }
 #devices td.id { width: 60px; }
 
+#networks td.id { width: 60px; }
+#networks td.devices { width: 40%; }
+
 #last-seen-devices th { font-family: monospace; font-weight: normal; font-size: 0.9em; border-bottom: 1px solid rgba(255,255,255,0.1); }
 #last-seen-devices td { padding: 0.1em 0; }
 #last-seen-devices td.mac a { text-align: left; }
+
+#most-requested-networks td.ssid { font-size: 0.9em; word-break: break-word; }
+#most-requested-networks td { vertical-align: middle; }
+#most-requested-networks tr:hover td { background: rgba(0,0,0,0.5); }
 
 .pagination p { text-align: center; margin-right: 5%; }
 .pagination p a.prev { float: left; }

@@ -1,67 +1,26 @@
-<!doctype html>
-<html>
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <title>Probe Hawk</title>
-    <link type="text/css" rel="stylesheet" href="/s/css/font.css" media="all" />
-    <link type="text/css" rel="stylesheet" href="/s/css/default.css" media="all" />
-    <link type="text/css" rel="stylesheet" href="/s/css/app.css" media="all" />
-</head>
-<body>
-    <header id="header">
-        <div class="c">
-            <a href="#" class="logo">Probe Hawk</a>
-            <nav class="site">
-                <li><a href="/">Logs</a></li>
-                <li class="active"><a href="/devices">Devices</a></li>
-                <li><a href="#">Networks</a></li>
-                <li><a href="#">Tags</a></li>
-                <li><a href="#">Agents</a></li>
-            </nav>
-            <nav class="user">
-                <li><a href="#">Log in</a></li>
-            </nav>
-        </div>
-    </header>
-    <div id="main">
-        <div class="c">
-            <h1>Newest Devices</h1>
-            <div class="daily">
-                <div class="c">
-                    <h3>Most Common Devices</h3>
-                    <table id="most-common-devices">
-                    </table>
-                </div>
-                <div class="c">
-                    <h3>Last Seen Devices</h3>
-                    <table id="last-seen-devices">
-                    </table>
-                </div>
-                <div class="c">
-                    <h3>Tagged Devices</h3>
-                    <table id="last-seen-devices">
-                    </table>
-                </div>
-            </div>
-            <div class="main">
-                <div id="pagination-top" class="pagination">
-                </div>
-                <table id="devices" class="zebra">
-                </table>
-                <div id="pagination" class="pagination">
-                </div>
-            </div>
-        </div>
+<h1>Newest Devices</h1>
+<div class="right">
+    <div class="c">
+        <h3>Most Common Devices</h3>
+        <table id="most-common-devices">
+        </table>
     </div>
-    <script src="/s/js/lib/moment.min.js"></script>
-    <script src="/s/js/lib/jsuri-1.1.1.js"></script>
-    <script src="/s/js/lib/promise-7.0.4.min.js"></script>
-    <script src="/s/js/p.js"></script>
-    <script src="/s/js/p.xhr.js"></script>
-    <script src="/s/js/main.js"></script>
-</body>
-</html>
+    <div class="c">
+        <h3>Last Seen Devices</h3>
+        <table id="last-seen-devices">
+        </table>
+    </div>
+    <div class="c">
+        <h3>Tagged Devices</h3>
+        <table id="last-seen-devices">
+        </table>
+    </div>
+</div>
+<div class="main">
+    <div id="pagination-top" class="pagination">
+    </div>
+    <table id="devices" class="zebra">
+    </table>
+    <div id="pagination" class="pagination">
+    </div>
+</div>

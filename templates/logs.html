@@ -1,0 +1,53 @@
+<h1>Logs</h1>
+<div class="right">
+    <div class="c" id="agents">
+        <h3>Agents</h3>
+        <table>
+            <td class="status">&#9679;</td>
+            <td>mr3040a</td>
+        </table>
+    </div>
+    <div class="c">
+        <h3>Daily Unique</h3>
+        <table id="daily-data">
+        </table>
+    </div>
+    <div class="c">
+        <h3>Time of Day Unique</h3>
+        <table id="timely-data">
+        </table>
+    </div>
+    <div class="c">
+        <h3>Weekday Unique</h3>
+        <table id="weekday-data">
+        </table>
+    </div>
+    <div class="c">
+        <h3>Upload</h3>
+        <form action="load" class="standard" method="post" enctype="multipart/form-data">
+            <div class="field">
+                <label for="agent">Agent</label>
+                <select id="agent" class="text" name="agent">
+                    <option value="1">mr3040</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="file">File</label>
+                <input type="file" name="file" id="file"/>
+            </div>
+            <div class="field submit">
+                <input type="submit" class="submit"/>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="main">
+    <div id="pagination-top" class="pagination">
+    </div>
+    <table class="log-data">
+        <tbody id="log-data">
+        </tbody>
+    </table>
+    <div id="pagination" class="pagination">
+    </div>
+</div>
