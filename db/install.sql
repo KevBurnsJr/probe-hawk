@@ -16,6 +16,7 @@ CREATE  TABLE `probe_hawk`.`agents` (
 CREATE  TABLE `probe_hawk`.`devices` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `mac` VARCHAR(17) NOT NULL ,
+  `name` VARCHAR(32) NOT NULL ,
   `notes` TEXT NULL ,
   `created` DATETIME NOT NULL ,
   PRIMARY KEY (`id`) ,

@@ -67,53 +67,6 @@ app.get('/upload', function(req, res){
   renderPage('upload', res);
 });
 
-app.post('/load', function (req, res) {
-  if (!req.files || !req.files.file) {
-    res.writeHead(400, { 'Content-Type': 'text/plain' });
-    res.send('No file was uploaded.');
-    return;
-  }
-  var file = req.files.file;
-  if (!req.body.agent) {
-    res.writeHead(400, { 'Content-Type': 'text/plain' });
-    res.send('Please select an agent.');
-    return;
-  }
-  var agent_id = req.body.agent;
-  file.mv('uploads/'+file.name, function(err) {
-    var lineReader = require('readline').createInterface({
-      terminal: false,
-      input: fs.createReadStream('uploads/'+file.name)
-    });
-    processLog(lineReader, agent_id).then(function(){
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end('ok');
-      fs.unlink('uploads/'+file.name);
-    });
-  });
-});
-
-app.post('/load-direct', function (req, res) {
-  if (!req.query.agent) {
-    res.writeHead(400, { 'Content-Type': 'text/plain' });
-    res.send('Please select an agent.');
-    return;
-  }
-  var agent_id = req.query.agent;
-  var filename = 'tmp'+(" "+Math.random()).substr(3);
-  fs.writeFile('uploads/'+filename, req.rawBody+"\n", function(err) {
-    var lineReader = require('readline').createInterface({
-      terminal: false,
-      input: fs.createReadStream('uploads/'+filename)
-    });
-    processLog(lineReader, agent_id).then(function(){
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end('ok');
-      fs.unlink('uploads/'+filename);
-    });
-  });
-});
-
 app.get('/data/logs', function(req, res){
   var limit = 35;
   var offset = req.query.page ? Math.max((parseInt(req.query.page)-1) * limit, 0) : 0;
@@ -261,6 +214,53 @@ app.get('/data/networks/common', function(req, res){
     res.end(JSON.stringify(result.map(function(o){
       return[o.id, o.ssid, o.device_total];
     })));
+  });
+});
+
+app.post('/load', function (req, res) {
+  if (!req.files || !req.files.file) {
+    res.writeHead(400, { 'Content-Type': 'text/plain' });
+    res.send('No file was uploaded.');
+    return;
+  }
+  var file = req.files.file;
+  if (!req.body.agent) {
+    res.writeHead(400, { 'Content-Type': 'text/plain' });
+    res.send('Please select an agent.');
+    return;
+  }
+  var agent_id = req.body.agent;
+  file.mv('uploads/'+file.name, function(err) {
+    var lineReader = require('readline').createInterface({
+      terminal: false,
+      input: fs.createReadStream('uploads/'+file.name)
+    });
+    processLog(lineReader, agent_id).then(function(){
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end('ok');
+      fs.unlink('uploads/'+file.name);
+    });
+  });
+});
+
+app.post('/load-direct', function (req, res) {
+  if (!req.query.agent) {
+    res.writeHead(400, { 'Content-Type': 'text/plain' });
+    res.send('Please select an agent.');
+    return;
+  }
+  var agent_id = req.query.agent;
+  var filename = 'tmp'+(" "+Math.random()).substr(3);
+  fs.writeFile('uploads/'+filename, req.rawBody+"\n", function(err) {
+    var lineReader = require('readline').createInterface({
+      terminal: false,
+      input: fs.createReadStream('uploads/'+filename)
+    });
+    processLog(lineReader, agent_id).then(function(){
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end('ok');
+      fs.unlink('uploads/'+filename);
+    });
   });
 });
 

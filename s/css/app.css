@@ -37,6 +37,9 @@ body { background: #000; height: 100%; overflow-y: scroll;  }
 #main .right .bar span { position: absolute; left: 0; top: 1px; bottom: 1px; background: #333; z-index: 0; }
 #main .right td.ssid a { line-height: 0.95em; padding: 0.2em 0; }
 
+#main .home-right { float: right; width: 25%; }
+#main .home-right .c { display: block; padding: 0 1em 1em; background: rgba(255,255,255,0.1); margin-bottom: 1em; text-decoration: none; }
+
 #agents table td.status { width: 10px; color: #0a0; text-align: center; padding: 0; }
 
 #main table.log-data { width: 95%; font-size: 1.1em; }
@@ -70,3 +73,6 @@ table.log-data td.db { font-family: monospace; }
 .pagination p a.next { float: right; }
 
 #main .main { width: 75%; float: left; }
+#main .main.home .info li { padding: 0.2em 0; }
+#main .main.home .info li span { display: inline-block; background: rgba(255,255,255,0.1); padding: 0.2em 0.5em; }
+a.agent-image { background: url('/s/i/tl-mr3040.jpg') no-repeat center center; background-size: contain; height: 100px; display: block; width: 182px; margin-bottom: 1em; } 

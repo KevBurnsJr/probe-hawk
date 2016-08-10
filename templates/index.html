@@ -1,1 +1,46 @@
-<h1>Home</h1>
+<h1>Hello, world.</h1>
+<div class="home-right">
+    <a href="/logs" class="c">
+        <h3>Logs</h3>
+        <p>View a list of all probe requests captured over time</p>
+    </a>
+    <a href="/devices" class="c">
+        <h3>Devices</h3>
+        <p>View a list of all mac addresses collected from captured probe requests</p>
+    </a>
+    <a href="/networks" class="c">
+        <h3>Networks</h3>
+        <p>View a list of all network ssids captured from requests</p>
+    </a>
+</div>
+<div class="main home">
+    <p>Welcome to my little side project.</p>
+    <p>This application is a proof of concept for probe request capture, logging and display.<br/>
+        Data displayed on this site was captured from a portable device in a tree in my front yard.<br/>
+        I live on a busy street, so I'm seeing about 2500 unique devices per day.</p>
+    <h4>Agent</h4>
+    <ul class="info">
+        <li><span>TP-Link TL-MR3040</span> portable router in sta mode connected to local wifi</li>
+        <li><span>OpenWRT</span> Chaos Calmer 15.05.1</li>
+        <li><span>4 port USB hub</span> since the router only has 1 USB port</li>
+        <li><span>Ralink RT5370</span> USB wifi adapter in monitor mode</li>
+        <li><span>16Gb USB Dongle</span> filesystem overlay</li>
+        <li><span>16500 mAh Battery</span> i have two of these and I swap them every 12 hours or so</li>
+        <li><span>tcpdump</span> -l -i wlan0 -tttt -e -s 256 type mgt subtype probe-req</li>
+        <li><span>curl</span> -X POST -d "$line" "http://probe.hky.me/etc..."</li>
+    </ul>
+    <h4>Server</h4>
+    <ul class="info">
+        <li><span>Centos 6</span> VPS on Digital Ocean</li>
+        <li><span>NodeJS</span> 400 lines of really simple Express</li>
+        <li><span>MySQL</span> 5 tables</li>
+    </ul>
+    <h4>Client</h4>
+    <ul class="info">
+        <li><span>Javascript</span> Vanilla JS w/ some AJAX, this is a prototype. Don't judge me.</li>
+        <li><span>HTML 5</span></li>
+        <li><span>CSS</span></li>
+    </ul>
+    <p>This data is "live" in the sense that it is being continually fed from the agent to the server.</p>
+    <p>If you refresh the page, you will get new results.</p>
+</div>
