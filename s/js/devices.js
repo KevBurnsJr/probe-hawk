@@ -23,7 +23,8 @@
         html += "<tr>";
         html += "<td class='id'>"+data[i][0]+"</td>";
         html += "<td class='mac'><a href='#' class='"+isLocal+"'"+isLocalTitle+">"+data[i][1]+"</a></td>";
-        html += "<td>"+networks.join("<br/>")+"</td>";
+        html += "<td class='company'>"+(data[i][3] ? data[i][3] : '')+"</td>";
+        html += "<td class='networks'>"+networks.join("<br/>")+"</td>";
         html += "</tr>";
       }
       window.document.getElementById('devices').innerHTML = html;

@@ -21,7 +21,7 @@
         html += "<td><a href='#'>"+data[i][1]+"</a></td>";
         html += "<td class='date' title='"+data[i][2]+"T"+data[i][3]+"+00:00'>"+moment(data[i][2]+"T"+data[i][3]+"+00:00").fromNow()+"</td>";
         html += "<td class='mac'><a href='#' class='"+isLocal+"'"+isLocalTitle+">"+data[i][4]+"</a></td>";
-        html += "<td class='db'>"+(data[i][7] ? data[i][7] : '')+"</td>";
+        html += "<td class='company'>"+(data[i][7] ? data[i][7] : '')+"</td>";
         html += "<td class='db'><a href='#'>"+(data[i][6] ? data[i][6] + " Network" + (data[i][6] == 1 ? "" : "s") : "")+"</a></td>";
         html += "<td class='db'>"+data[i][5]+"dB</td>";
         html += "</tr>";
