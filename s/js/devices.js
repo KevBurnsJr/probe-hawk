@@ -18,9 +18,11 @@
         for(j in data[i][2]) {
           networks.push('<a href="/networks/'+encodeURIComponent(data[i][2][j])+'">'+data[i][2][j]+'</a>');
         }
+        var isLocal = parseInt(data[i][1].slice(0,2), 16) & 0x00000010 ? 'is-local' : '';
+        var isLocalTitle = isLocal ? " title='This is a locally administered mac address'" : "";
         html += "<tr>";
         html += "<td class='id'>"+data[i][0]+"</td>";
-        html += "<td class='mac'><a href='#'>"+data[i][1]+"</a></td>";
+        html += "<td class='mac'><a href='#' class='"+isLocal+"'"+isLocalTitle+">"+data[i][1]+"</a></td>";
         html += "<td>"+networks.join("<br/>")+"</td>";
         html += "</tr>";
       }
@@ -49,8 +51,10 @@
       }, 0);
       var html = '';
       for(i in data) {
+        var isLocal = parseInt(data[i][1].slice(0,2), 16) & 0x00000010 ? 'is-local' : '';
+        var isLocalTitle = isLocal ? " title='This is a locally administered mac address'" : "";
         html += "<tr>";
-        html += "<td class='date'><a href='#'>"+data[i][1]+"</a></td>";
+        html += "<td class='mac date'><a href='#' class='"+isLocal+"'"+isLocalTitle+">"+data[i][1]+"</a></td>";
         html += "<td><a href='#' class='bar'><span style='width: "+(data[i][2]/max)*100+"%;'></span></a></td>";
         html += "<td class='count'><a href='#'>"+data[i][2]+"</a></td>";
         html += "</tr>";
@@ -74,12 +78,14 @@
       var html = '';
       var date = '';
       for(i in data) {
+        var isLocal = parseInt(data[i][1].slice(0,2), 16) & 0x00000010 ? 'is-local' : '';
+        var isLocalTitle = isLocal ? " title='This is a locally administered mac address'" : "";
         if(date != data[i][2]) {
           html += "<tr><th colspan='2'>"+data[i][2]+"</th></tr>";
           date = data[i][2];
         }
         html += "<tr>";
-        html += "<td class='mac'><a href='#'>"+data[i][1]+"</a></td>";
+        html += "<td class='mac'><a href='#' class='"+isLocal+"'"+isLocalTitle+">"+data[i][1]+"</a></td>";
         html += "<td><a href='#'>"+data[i][3]+"</a></td>";
         html += "</tr>";
       }

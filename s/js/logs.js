@@ -14,11 +14,14 @@
     }).then(function(data){
       var html = '';
       for(i in data) {
+        var isLocal = parseInt(data[i][4].slice(0,2), 16) & 0x00000010 ? 'is-local' : '';
+        var isLocalTitle = isLocal ? " title='This is a locally administered mac address'" : "";
         html += "<tr>";
         html += "<td class='id'>"+data[i][0]+"</td>";
         html += "<td><a href='#'>"+data[i][1]+"</a></td>";
         html += "<td class='date' title='"+data[i][2]+"T"+data[i][3]+"+00:00'>"+moment(data[i][2]+"T"+data[i][3]+"+00:00").fromNow()+"</td>";
-        html += "<td class='mac'><a href='#'>"+data[i][4]+"</a></td>";
+        html += "<td class='mac'><a href='#' class='"+isLocal+"'"+isLocalTitle+">"+data[i][4]+"</a></td>";
+        html += "<td class='db'>"+(data[i][7] ? data[i][7] : '')+"</td>";
         html += "<td class='db'><a href='#'>"+(data[i][6] ? data[i][6] + " Network" + (data[i][6] == 1 ? "" : "s") : "")+"</a></td>";
         html += "<td class='db'>"+data[i][5]+"dB</td>";
         html += "</tr>";

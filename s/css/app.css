@@ -43,11 +43,16 @@ body { background: #000; height: 100%; overflow-y: scroll;  }
 #agents table td.status { width: 10px; color: #0a0; text-align: center; padding: 0; }
 
 #main table.log-data { width: 95%; font-size: 1.1em; }
+#main table.log-data tr:hover td { background: rgba(255,255,255,0.1); }
 #main #devices { width: 95%; font-size: 1.1em; }
 #main #networks { width: 95%; font-size: 1.1em; }
 #main table.zebra tr td,
 #main table.zebra tr th { padding: 0.25em 0.5em; vertical-align: middle; }
 #main table.zebra tr:nth-child(odd) td { background: rgba(255,255,255,0.1); }
+
+#main table td.ssid a { color: #999; }
+#main table td.mac a { color: #999; }
+#main table td.mac a.is-local { color: #444; }
 
 #main table.log-data th { text-align: left; padding-bottom: 0.4em; color: #666; }
 table.log-data td.mac,

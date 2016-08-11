@@ -70,10 +70,11 @@ app.get('/upload', function(req, res){
 app.get('/data/logs', function(req, res){
   var limit = 35;
   var offset = req.query.page ? Math.max((parseInt(req.query.page)-1) * limit, 0) : 0;
-  var q = 'SELECT logs.id, date, time, agents.name, d.mac, signal_strength, dn.network_id, count(*) as network_count from logs ' +
+  var q = 'SELECT logs.id, date, time, agents.name, d.mac, signal_strength, dn.network_id, count(*) as network_count, c.name as company from logs ' +
     'LEFT JOIN devices as d on logs.device_id = d.id ' +
     'LEFT JOIN devices_networks as dn on dn.device_id = d.id ' +
     'LEFT JOIN agents on logs.agent_id = agents.id ' + 
+    'LEFT JOIN companies as c on d.company_id = c.id ' +
     'GROUP BY logs.id ' +
     'ORDER BY date desc, time desc ' + 
     'LIMIT '+offset+', '+limit;
@@ -84,7 +85,7 @@ app.get('/data/logs', function(req, res){
       result[i].network_count = result[i].network_id ? result[i].network_count : 0; 
     }
     res.end(JSON.stringify(result.map(function(o){
-      return[o.id, o.name,o.date,o.time,o.mac,o.signal_strength, o.network_count];
+      return[o.id, o.name,o.date,o.time,o.mac,o.signal_strength, o.network_count, (o.company ? o.company.split(' ')[0].replace(/\,$/, '') : null)];
     })));
   });
 });
@@ -92,16 +93,17 @@ app.get('/data/logs', function(req, res){
 app.get('/data/devices', function(req, res){
   var limit = 20;
   var offset = req.query.page ? Math.max((parseInt(req.query.page)-1) * limit, 0) : 0;
-  var q = 'SELECT d.id, mac, group_concat(n.ssid) as networks from devices as d ' +
+  var q = 'SELECT d.id, mac, group_concat(n.ssid) as networks, c.name as company from devices as d ' +
     'LEFT JOIN devices_networks as dn on dn.device_id = d.id ' +
     'LEFT JOIN networks as n on dn.network_id = n.id ' + 
+    'LEFT JOIN companies as c on d.company_id = c.id ' +
     'GROUP BY d.id ' + 
     'ORDER BY d.id desc ' + 
     'LIMIT '+offset+', '+limit;
   connection.query(q, function(err, result) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(result.map(function(o){
-      return[o.id, o.mac, (o.networks ? o.networks.split(',') : [])];
+      return[o.id, o.mac, (o.networks ? o.networks.split(',') : []), (o.company ? o.company.split(' ')[0].replace(/\,$/, '') : null)];
     })));
   });
 });
@@ -342,7 +344,18 @@ function processLog(lineReader, agent_id) {
               proceed(id);
             } else {
               connection.query('INSERT INTO devices (mac, created) VALUES (?, NOW())', [mac], function(err, res) {
-                proceed(res.insertId);
+                var device_id = res.insertId;
+                var q = 'UPDATE devices as d '+
+                  'LEFT JOIN companies as c ON ( ' +
+                  '	   c.oui = left(d.mac,8) ' +
+                  '	OR c.oui = left(d.mac,10) ' +
+                  '	OR c.oui = left(d.mac,11) ' +
+                  '	OR c.oui = left(d.mac,13) ' +
+                  ') SET d.company_id = c.id '+
+                  'WHERE d.mac = ?;';
+                connection.query(q, [mac], function(err, res) {
+                  proceed(device_id);
+                });
               });
             }
           });
